@@ -58,6 +58,7 @@ import org.lineageos.glimpse.viewmodels.MediaViewerViewModel
 import org.lineageos.glimpse.viewmodels.QueryResult.Data
 import org.lineageos.glimpse.viewmodels.QueryResult.Empty
 import java.text.SimpleDateFormat
+import java.util.Date
 import kotlin.reflect.safeCast
 
 /**
@@ -279,8 +280,14 @@ class ViewActivity : AppCompatActivity(R.layout.activity_view) {
 
             // Update date and time text
             mediaStoreMedia?.let {
-                toolbar.title = dateFormatter.format(it.dateAdded)
-                toolbar.subtitle = timeFormatter.format(it.dateAdded)
+                toolbar.title =
+                    if (it.dateTaken != Date(0)) dateFormatter.format(it.dateTaken) else dateFormatter.format(
+                        it.dateAdded
+                    )
+                toolbar.subtitle =
+                    if (it.dateTaken != Date(0)) timeFormatter.format(it.dateTaken) else timeFormatter.format(
+                        it.dateAdded
+                    )
             } ?: run {
                 toolbar.title = ""
                 toolbar.subtitle = ""
@@ -672,6 +679,7 @@ class ViewActivity : AppCompatActivity(R.layout.activity_view) {
                 MediaStore.MediaColumns.MIME_TYPE,
                 MediaStore.MediaColumns.DATE_ADDED,
                 MediaStore.MediaColumns.DATE_MODIFIED,
+                MediaStore.MediaColumns.DATE_TAKEN,
                 MediaStore.MediaColumns.WIDTH,
                 MediaStore.MediaColumns.HEIGHT,
                 MediaStore.MediaColumns.ORIENTATION,
@@ -688,6 +696,7 @@ class ViewActivity : AppCompatActivity(R.layout.activity_view) {
             val dateAddedIndex = it.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_ADDED)
             val dateModifiedIndex =
                 it.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED)
+            val dateTakenIndex = it.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_TAKEN)
             val widthIndex = it.getColumnIndexOrThrow(MediaStore.MediaColumns.WIDTH)
             val heightIndex = it.getColumnIndexOrThrow(MediaStore.MediaColumns.HEIGHT)
             val orientationIndex =
@@ -710,6 +719,7 @@ class ViewActivity : AppCompatActivity(R.layout.activity_view) {
             val mimeType = it.getString(mimeTypeIndex)
             val dateAdded = it.getLong(dateAddedIndex)
             val dateModified = it.getLong(dateModifiedIndex)
+            val dateTaken = it.getLong(dateTakenIndex)
             val width = it.getInt(widthIndex)
             val height = it.getInt(heightIndex)
             val orientation = it.getInt(orientationIndex)
@@ -724,6 +734,7 @@ class ViewActivity : AppCompatActivity(R.layout.activity_view) {
                 mimeType,
                 dateAdded,
                 dateModified,
+                dateTaken,
                 width,
                 height,
                 orientation,

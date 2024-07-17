@@ -123,6 +123,7 @@ class AlbumFlow(
                 val dateAddedIndex = it.getColumnIndex(MediaStore.Files.FileColumns.DATE_ADDED)
                 val dateModifiedIndex =
                     it.getColumnIndex(MediaStore.Files.FileColumns.DATE_MODIFIED)
+                val dateTakenIndex = it.getColumnIndex(MediaStore.Files.FileColumns.DATE_TAKEN)
                 val widthIndex = it.getColumnIndex(MediaStore.Files.FileColumns.WIDTH)
                 val heightIndex = it.getColumnIndex(MediaStore.Files.FileColumns.HEIGHT)
                 val orientationIndex =
@@ -142,6 +143,7 @@ class AlbumFlow(
                     val mimeType = it.getString(mimeTypeIndex)
                     val dateAdded = it.getLong(dateAddedIndex)
                     val dateModified = it.getLong(dateModifiedIndex)
+                    val dateTaken = it.getLong(dateTakenIndex)
                     val width = it.getInt(widthIndex)
                     val height = it.getInt(heightIndex)
                     val orientation = it.getInt(orientationIndex)
@@ -156,6 +158,7 @@ class AlbumFlow(
                         mimeType,
                         dateAdded,
                         dateModified,
+                        dateTaken,
                         width,
                         height,
                         orientation,

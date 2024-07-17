@@ -26,6 +26,7 @@ data class MediaStoreMedia(
     override val mimeType: String,
     val dateAdded: Date,
     val dateModified: Date,
+    val dateTaken: Date,
     val width: Int,
     val height: Int,
     val orientation: Int,
@@ -40,6 +41,7 @@ data class MediaStoreMedia(
         parcel.readInt() == 1,
         parcel.readSerializable(MediaType::class)!!,
         parcel.readString()!!,
+        Date(parcel.readLong()),
         Date(parcel.readLong()),
         Date(parcel.readLong()),
         parcel.readInt(),
@@ -64,6 +66,7 @@ data class MediaStoreMedia(
         { it.mimeType },
         { it.dateAdded },
         { it.dateModified },
+        { it.dateTaken },
         { it.width },
         { it.height },
         { it.orientation },
@@ -81,6 +84,7 @@ data class MediaStoreMedia(
         dest.writeString(mimeType)
         dest.writeLong(dateAdded.time)
         dest.writeLong(dateModified.time)
+        dest.writeLong(dateTaken.time)
         dest.writeInt(width)
         dest.writeInt(height)
         dest.writeInt(orientation)
@@ -101,6 +105,7 @@ data class MediaStoreMedia(
             mimeType: String,
             dateAdded: Long,
             dateModified: Long,
+            dateTaken: Long,
             width: Int,
             height: Int,
             orientation: Int,
@@ -114,6 +119,7 @@ data class MediaStoreMedia(
             mimeType,
             Date(dateAdded * 1000),
             Date(dateModified * 1000),
+            Date(dateTaken),
             width,
             height,
             orientation,

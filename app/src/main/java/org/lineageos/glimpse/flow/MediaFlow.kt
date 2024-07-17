@@ -81,7 +81,7 @@ class MediaFlow(
             MediaStoreBuckets.MEDIA_STORE_BUCKET_TRASH.id ->
                 "${MediaStore.Files.FileColumns.DATE_EXPIRES} DESC"
 
-            else -> "${MediaStore.Files.FileColumns.DATE_ADDED} DESC"
+            else -> "COALESCE(${MediaStore.Files.FileColumns.DATE_TAKEN}, ${MediaStore.Files.FileColumns.DATE_ADDED}) DESC"
         }
 
         val queryArgs = Bundle().apply {
@@ -121,6 +121,7 @@ class MediaFlow(
             MediaStore.Files.FileColumns.MIME_TYPE,
             MediaStore.Files.FileColumns.DATE_ADDED,
             MediaStore.Files.FileColumns.DATE_MODIFIED,
+            MediaStore.Files.FileColumns.DATE_TAKEN,
             MediaStore.Files.FileColumns.WIDTH,
             MediaStore.Files.FileColumns.HEIGHT,
             MediaStore.Files.FileColumns.ORIENTATION,
@@ -137,6 +138,7 @@ class MediaFlow(
         val mimeType = it.getString(indexCache[i++])
         val dateAdded = it.getLong(indexCache[i++])
         val dateModified = it.getLong(indexCache[i++])
+        val dateTaken = it.getLong(indexCache[i++])
         val width = it.getInt(indexCache[i++])
         val height = it.getInt(indexCache[i++])
         val orientation = it.getInt(indexCache[i++])
@@ -151,6 +153,7 @@ class MediaFlow(
             mimeType,
             dateAdded,
             dateModified,
+            dateTaken,
             width,
             height,
             orientation,

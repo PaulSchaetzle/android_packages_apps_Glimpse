@@ -32,10 +32,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.lineageos.glimpse.R
+import org.lineageos.glimpse.ViewActivity
+import org.lineageos.glimpse.ViewActivity.Companion
 import org.lineageos.glimpse.ext.*
 import org.lineageos.glimpse.models.MediaStoreMedia
 import org.lineageos.glimpse.models.MediaType
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class MediaInfoBottomSheetDialog(
@@ -88,8 +91,14 @@ class MediaInfoBottomSheetDialog(
 
         val unknownString = unknownString
 
-        dateTextView.text = dateFormatter.format(media.dateAdded)
-        timeTextView.text = timeFormatter.format(media.dateAdded)
+        dateTextView.text =
+            if (media.dateTaken != Date(0)) dateFormatter.format(media.dateTaken) else dateFormatter.format(
+                media.dateAdded
+            )
+        timeTextView.text =
+            if (media.dateTaken != Date(0)) timeFormatter.format(media.dateTaken) else timeFormatter.format(
+                media.dateAdded
+            )
 
         mediaInfoListItem.leadingIconImage = ResourcesCompat.getDrawable(
             context.resources,

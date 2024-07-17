@@ -20,6 +20,7 @@ object MediaQuery {
         MediaStore.Files.FileColumns.MIME_TYPE,
         MediaStore.Files.FileColumns.DATE_ADDED,
         MediaStore.Files.FileColumns.DATE_MODIFIED,
+        MediaStore.Files.FileColumns.DATE_TAKEN,
         MediaStore.Files.FileColumns.WIDTH,
         MediaStore.Files.FileColumns.HEIGHT,
         MediaStore.Files.FileColumns.ORIENTATION,
